@@ -10,7 +10,11 @@ public class ControladorLogin {
     private Usuario usuarioActual;
 
     public ControladorLogin() {
-        persistenciaDatos = new PersistenciaDatos();
+        this(new PersistenciaDatos());
+    }
+
+    public ControladorLogin(PersistenciaDatos persistenciaDatos) {
+        this.persistenciaDatos = persistenciaDatos;
         prepararCuentaDemostracion();
     }
 

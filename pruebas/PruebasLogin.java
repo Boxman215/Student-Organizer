@@ -1,15 +1,16 @@
 import controlador.ControladorLogin;
+import persistencia.PersistenciaDatos;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class PruebasLogin {
     public static void main(String[] args) throws Exception {
-        Path archivoUsuarios = Paths.get("data", "usuarios.csv");
-        Files.deleteIfExists(archivoUsuarios);
+        Path carpetaTemporal = Files.createTempDirectory("prueba-login");
+        Path archivoUsuarios = carpetaTemporal.resolve("usuarios.csv");
 
-        ControladorLogin controlador = new ControladorLogin();
+        ControladorLogin controlador = new ControladorLogin(
+                new PersistenciaDatos(archivoUsuarios));
 
         assert !controlador.iniciarSesion("", "")
                 : "No se debe iniciar sesión con campos vacíos";
@@ -27,6 +28,7 @@ public class PruebasLogin {
                 : "Cerrar sesión debe borrar el usuario actual";
 
         Files.deleteIfExists(archivoUsuarios);
+        Files.deleteIfExists(carpetaTemporal);
         System.out.println("PruebasLogin: todas las pruebas pasaron");
     }
 }
