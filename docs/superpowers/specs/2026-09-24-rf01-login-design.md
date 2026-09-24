@@ -13,7 +13,7 @@ Este trabajo incluirá únicamente RF01:
 - `ControladorLogin` para revisar las credenciales y mantener la sesión iniciada.
 - Una pantalla sencilla de inicio de sesión en `Vista`.
 - Revisión de datos y pruebas del funcionamiento.
-- Documento de requisitos y prioridades, con espacios vacíos para que Andreh agregue sus horas y contribuciones reales.
+- Documento de requisitos y prioridades, con espacios para agregar mis horas y contribuciones reales.
 
 No se harán todavía las funciones de calificaciones, tareas ni promedio general. Esas funciones podrán usar el inicio de sesión después.
 
@@ -37,6 +37,6 @@ Para poder demostrar el funcionamiento, si el archivo está vacío se agregará 
 
 Se probarán los campos vacíos, los usuarios inexistentes, las contraseñas incorrectas, el inicio correcto, el cierre de sesión y la recuperación de datos después de volver a abrir la aplicación. También se abrirá la pantalla para comprobar manualmente los casos correctos e incorrectos.
 
-## Espacios para completar por Andreh
+## Espacios para completar
 
-El documento tendrá espacios para que Andreh agregue sus fechas reales, horas trabajadas, interrupciones, enlaces de sus contribuciones y comentarios de los usuarios. No se inventarán actividades personales.
+El documento tendrá espacios para agregar mis fechas reales, horas trabajadas, interrupciones, enlaces de mis contribuciones y comentarios de los usuarios. Estos datos los completaré con la información real del trabajo realizado.
