@@ -39,4 +39,4 @@ Se probarán los campos vacíos, los usuarios inexistentes, las contraseñas inc
 
 ## Espacios para completar
 
-El documento tendrá espacios para agregar mis fechas reales, horas trabajadas, interrupciones, enlaces de mis contribuciones y comentarios de los usuarios. Estos datos los completaré con la información real del trabajo realizado.
+El documento tendrá espacios para agregar mis fechas, horas trabajadas, interrupciones, enlaces de mis contribuciones y comentarios de los usuarios.
