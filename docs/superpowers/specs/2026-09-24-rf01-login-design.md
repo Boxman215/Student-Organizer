@@ -1,42 +1,42 @@
-# RF01 Login Design
+# RF01 - Diseño del inicio de sesión
 
-## Goal
+## Objetivo
 
-Implement a simple, functional login with username and password for the Student Organizer project, following the existing UML and the MVC separation required by the course.
+Crear un inicio de sesión sencillo y funcional con usuario y contraseña para Student Organizer, siguiendo el diagrama UML existente y separando correctamente la información, las acciones y la pantalla.
 
-## Scope
+## Qué se va a incluir
 
-This change covers only RF01:
+Este trabajo incluirá únicamente RF01:
 
-- `Usuario` with `nombreUsuario`, `contrasena` and `carne`.
-- File-based persistence of users through `PersistenciaDatos`.
-- `ControladorLogin` for authentication and session state.
-- A basic `Vista` login screen.
-- Validation and executable tests for the login flow.
-- Requirement and priority documentation, with empty sections for Andreh's real hours and contributions.
+- La clase `Usuario`, con `nombreUsuario`, `contrasena` y `carne`.
+- Guardado de usuarios en un archivo mediante `PersistenciaDatos`.
+- `ControladorLogin` para revisar las credenciales y mantener la sesión iniciada.
+- Una pantalla sencilla de inicio de sesión en `Vista`.
+- Revisión de datos y pruebas del funcionamiento.
+- Documento de requisitos y prioridades, con espacios vacíos para que Andreh agregue sus horas y contribuciones reales.
 
-It does not implement grades, tasks or the general average. Those features will consume the login/session contract later.
+No se harán todavía las funciones de calificaciones, tareas ni promedio general. Esas funciones podrán usar el inicio de sesión después.
 
-## Design
+## Cómo funcionará
 
-The model stores users. `PersistenciaDatos` reads and writes a simple UTF-8 file under `data/usuarios.csv`, creating the directory and file when needed. Passwords are stored as SHA-256 hashes so the prototype does not keep plain-text passwords. The controller loads users, validates the input and stores the authenticated user in `usuarioActual`.
+La clase `Usuario` representará a cada persona que puede entrar al sistema. `PersistenciaDatos` leerá y guardará los usuarios en el archivo `data/usuarios.csv`. Si la carpeta o el archivo no existen, se crearán automáticamente.
 
-The view is a small Java Swing window with username, password and login controls. It calls the controller and shows a success or error message; it does not contain authentication logic.
+Las contraseñas no se guardarán directamente, sino como un código seguro. La pantalla solo recibirá los datos y mostrará mensajes; la revisión de las credenciales estará en `ControladorLogin`.
 
-The first run includes a non-personal demo account only when the user file is empty: `demo` / `demo123`. This makes the requirement demonstrable without inventing personal credentials. The README will explain how to replace it with real test data.
+Para poder demostrar el funcionamiento, si el archivo está vacío se agregará una cuenta de prueba que no pertenece a ninguna persona: `demo` / `demo123`. El archivo README explicará cómo cambiarla por datos de prueba propios.
 
-## Validation and errors
+## Revisiones y errores
 
-- Empty or whitespace-only username: reject with a clear message.
-- Empty password: reject with a clear message.
-- Unknown username or wrong password: reject without creating a session.
-- Correct credentials: set `usuarioActual` and report success.
-- Missing or malformed data file: create an empty valid file when possible and report persistence failures without crashing the UI.
+- Si el usuario está vacío o solo tiene espacios, se rechazará.
+- Si la contraseña está vacía, se rechazará.
+- Si el usuario no existe o la contraseña es incorrecta, no se iniciará sesión.
+- Si los datos son correctos, se guardará el usuario en `usuarioActual`.
+- Si el archivo de usuarios no existe, se creará cuando sea posible y se mostrará un mensaje si ocurre algún problema.
 
-## Verification
+## Pruebas
 
-The tests will cover empty fields, unknown users, wrong passwords, successful authentication, logout and persistence across a new `PersistenciaDatos` instance. A manual smoke test will launch the Swing view and exercise the same success and failure paths.
+Se probarán los campos vacíos, los usuarios inexistentes, las contraseñas incorrectas, el inicio correcto, el cierre de sesión y la recuperación de datos después de volver a abrir la aplicación. También se abrirá la pantalla para comprobar manualmente los casos correctos e incorrectos.
 
-## Documentation placeholders
+## Espacios para completar por Andreh
 
-The implementation will include a small RF01 document with placeholders for Andreh to complete with real dates, hours, interruptions, contribution links and user-feedback notes. No personal activity will be fabricated.
+El documento tendrá espacios para que Andreh agregue sus fechas reales, horas trabajadas, interrupciones, enlaces de sus contribuciones y comentarios de los usuarios. No se inventarán actividades personales.
