@@ -11,12 +11,15 @@ public class GestorCalificaciones {
     }
 
     public void agregar(Calificacion calificacion) {
-        if (calificacion != null) {
-            listaCalificaciones.add(calificacion);
+        if (calificacion == null) {
+            throw new IllegalArgumentException("La calificación no puede ser nula.");
         }
+
+        listaCalificaciones.add(calificacion);
     }
 
     public List<Calificacion> getListaCalificaciones() {
-        return listaCalificaciones;
+        // Se devuelve una copia para proteger la lista original.
+        return new ArrayList<>(listaCalificaciones);
     }
 }

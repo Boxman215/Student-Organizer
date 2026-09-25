@@ -9,8 +9,9 @@ public class PruebasLogin {
         Path carpetaTemporal = Files.createTempDirectory("prueba-login");
         Path archivoUsuarios = carpetaTemporal.resolve("usuarios.csv");
 
+        //pruebas de usuarios de tu nueva PersistenciaDatos
         ControladorLogin controlador = new ControladorLogin(
-                new PersistenciaDatos(archivoUsuarios));
+                PersistenciaDatos.paraPruebasUsuarios(archivoUsuarios));
 
         assert !controlador.iniciarSesion("", "")
                 : "No se debe iniciar sesión con campos vacíos";

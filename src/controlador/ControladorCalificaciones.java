@@ -9,43 +9,51 @@ public class ControladorCalificaciones {
     private GestorCalificaciones gestor;
     private PersistenciaDatos persistencia;
 
-    // Constructor base #1 
+    // Constructor base #1
     public ControladorCalificaciones() {
         this(new PersistenciaDatos());
     }
 
     // Constructor que nos permite tener una instancia de PersistenciaDatos
     public ControladorCalificaciones(PersistenciaDatos persistencia) {
+        if (persistencia == null) {
+            throw new IllegalArgumentException("La persistencia no puede ser nula.");
+        }
+
         this.gestor = new GestorCalificaciones();
         this.persistencia = persistencia;
     }
 
     public boolean registrarCalificacion(String carneUsuario, String curso, double nota, String comentario) {
-        if (carneUsuario == null || carneUsuario.trim().isEmpty()) {
-            System.out.println("Error: El usuario/carné no puede estar vacío.");
-            return false;
-        }
-
-        if (curso == null || curso.trim().isEmpty()) {
-            System.out.println("Error: El curso no puede estar vacío.");
-            return false;
-        }
-
-        Calificacion nuevaCalificacion = new Calificacion(carneUsuario.trim(), curso.trim(), nota, comentario);
-
         try {
-            // Se usa el atributo persistencia (de instancia) en vez de la llamada estática
+            // La clase Calificacion se encarga de validar los datos básicos.
+            Calificacion nuevaCalificacion = new Calificacion(
+                    carneUsuario,
+                    curso,
+                    nota,
+                    comentario
+            );
+
+            // Primero se guarda la calificación en la persistencia.
             persistencia.guardarCalificacion(nuevaCalificacion);
+
+            // Si se pudo guardar correctamente, también se agrega al gestor.
             gestor.agregar(nuevaCalificacion);
+
             return true;
-        } catch (Exception e) {
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: Datos inválidos. " + e.getMessage());
+            return false;
+
+        } catch (IllegalStateException e) {
             System.out.println("Error: No se pudo guardar en la persistencia. " + e.getMessage());
             return false;
         }
     }
 
     public List<Calificacion> obtenerCalificaciones(String carneUsuario) {
-        // Se llama a través del atributo persistencia
+        // Se llama a través del atributo persistencia.
         return persistencia.leerCalificacionesPorUsuario(carneUsuario);
     }
 }

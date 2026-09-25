@@ -1,5 +1,3 @@
-package pruebas;
-
 import controlador.ControladorTareas;
 import modelo.Tarea;
 import persistencia.PersistenciaDatos;
@@ -13,7 +11,7 @@ public class PruebasTareas {
         Path carpetaTemporal = Files.createTempDirectory("prueba-tareas");
         Path archivoTareas = carpetaTemporal.resolve("tareas.csv");
 
-        // --- Pruebas de la clase Tarea ---
+        // --- Pruebas de la clase Tarea 
         Tarea tarea = new Tarea("Diagrama de clases", "2026-10-19", "alta");
         assert tarea.getPrioridad().equals("Alta")
             : "La prioridad debe normalizarse a 'Alta'";
@@ -28,8 +26,8 @@ public class PruebasTareas {
         probarError(() -> new Tarea("Tarea", "19/10/2026", "Alta"), "fecha con formato invalido");
         probarError(() -> new Tarea("Tarea", "2026-10-19", "Urgente"), "prioridad invalida");
 
-        // --- Pruebas de PersistenciaDatos + ControladorTareas ---
-        PersistenciaDatos persistencia = new PersistenciaDatos(archivoTareas);
+        // --- Pruebas de PersistenciaDatos + ControladorTareas
+        PersistenciaDatos persistencia = PersistenciaDatos.paraPruebasTareas(archivoTareas);
         ControladorTareas controlador = new ControladorTareas(persistencia);
 
         controlador.registrarTarea("Leer capitulo 5", "2026-10-25", "Media");
@@ -40,8 +38,7 @@ public class PruebasTareas {
         assert Files.exists(archivoTareas)
             : "El archivo de tareas debe crearse al registrar una tarea";
 
-        // Simula "cerrar y volver a abrir" el programa: se crea un
-        // controlador nuevo apuntando al mismo archivo.
+        // "cerrar y volver a abrir" el programa
         ControladorTareas controladorReiniciado = new ControladorTareas(persistencia);
         assert controladorReiniciado.getListaTareas().size() == 2
             : "Las tareas deben persistir después de reiniciar el programa";

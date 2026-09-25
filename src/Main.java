@@ -5,8 +5,11 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() ->
-                new Vista(new ControladorLogin()).mostrarLogin()
-        );
+        // Inicializa el flujo principal del programa arrancando con el Login
+        SwingUtilities.invokeLater(() -> {
+            ControladorLogin controladorLogin = new ControladorLogin();
+            Vista vistaPrincipal = new Vista(controladorLogin);
+            vistaPrincipal.mostrarLogin();
+        });
     }
 }
